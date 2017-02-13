@@ -33,6 +33,18 @@ class AirCargoProblem(Problem):
         self.airports = airports
         self.actions_list = self.get_actions()
 
+        self.at_cargo_airport_list = []
+        for c in self.cargos:
+            for ap in self.airports:
+                at_cargo_airport = expr("At({}, {})".format(c, ap))
+                self.at_cargo_airport_list.append(at_cargo_airport)
+
+        self.in_cargo_plane_list = []
+        for c in self.cargos:
+            for p in self.planes:
+                in_cargo_plane = expr("In({}, {})".format(c, p))
+                self.in_cargo_plane_list.append(in_cargo_plane)
+
     def get_actions(self):
         '''
         This method creates concrete actions (no variables) for all actions in the problem
@@ -202,6 +214,16 @@ class AirCargoProblem(Problem):
         '''
         # TODO implement (see Russell-Norvig Ed-3 10.2.3  or Russell-Norvig Ed-2 11.2)
         count = 0
+        kb = PropKB()
+        kb.tell(decode_state(node.state, self.state_map).pos_sentence())
+
+        for clause in self.goal:
+            if clause in kb.clauses:
+                pass # nothing
+            elif clause in self.at_cargo_airport_list:
+                count += 2 # Load, Unload.  Effect of Fly can be shared among cargo
+            elif clause in self.in_cargo_plane_list:
+                count += 1 # Unload
         return count
 
 
