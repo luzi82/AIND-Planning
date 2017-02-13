@@ -1,0 +1,20 @@
+
+Solving Air Cargo Problem 1 using depth_first_graph_search...
+
+Expansions   Goal Tests   New Nodes
+    12          13          48    
+
+Plan length: 12  Time elapsed in seconds: 0.006824137060903013
+Fly(P1, SFO, JFK)
+Fly(P2, JFK, SFO)
+Load(P2, SFO, C1)
+Fly(P2, SFO, JFK)
+Fly(P1, JFK, SFO)
+Unload(P2, JFK, C1)
+Fly(P2, JFK, SFO)
+Fly(P1, SFO, JFK)
+Load(P1, JFK, C2)
+Fly(P2, SFO, JFK)
+Fly(P1, JFK, SFO)
+Unload(P1, SFO, C2)
+

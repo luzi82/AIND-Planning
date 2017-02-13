@@ -1,0 +1,17 @@
+
+Solving Air Cargo Problem 2 using uniform_cost_search...
+
+Expansions   Goal Tests   New Nodes
+   4823        4825       43774   
+
+Plan length: 9  Time elapsed in seconds: 36.44886815990321
+Load(P1, SFO, C1)
+Load(P2, JFK, C2)
+Load(P3, ATL, C3)
+Fly(P1, SFO, JFK)
+Fly(P2, JFK, SFO)
+Fly(P3, ATL, SFO)
+Unload(P3, SFO, C3)
+Unload(P2, SFO, C2)
+Unload(P1, JFK, C1)
+
