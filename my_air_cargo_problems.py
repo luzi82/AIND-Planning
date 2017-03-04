@@ -220,8 +220,10 @@ class AirCargoProblem(Problem):
         for clause in self.goal:
             if clause in kb.clauses:
                 pass # nothing
+#             elif clause in self.at_cargo_airport_list:
+#                 count += 2 # Load, Unload.  Effect of Fly can be shared among cargo
             elif clause in self.at_cargo_airport_list:
-                count += 2 # Load, Unload.  Effect of Fly can be shared among cargo
+                count += 1 # Load, Unload.  Effect of Fly can be shared among cargo
             elif clause in self.in_cargo_plane_list:
                 count += 1 # Unload
         return count
