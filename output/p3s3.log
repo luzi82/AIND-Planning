@@ -4,7 +4,7 @@ Solving Air Cargo Problem 3 using depth_first_graph_search...
 Expansions   Goal Tests   New Nodes
    627         628         5176   
 
-Plan length: 596  Time elapsed in seconds: 2.7270498379366472
+Plan length: 596  Time elapsed in seconds: 2.8369920291006565
 Fly(P1, SFO, ORD)
 Fly(P2, JFK, ORD)
 Fly(P1, ORD, ATL)

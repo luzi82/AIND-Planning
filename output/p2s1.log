@@ -4,7 +4,7 @@ Solving Air Cargo Problem 2 using breadth_first_search...
 Expansions   Goal Tests   New Nodes
    3343        4609       30509   
 
-Plan length: 9  Time elapsed in seconds: 11.934226323035546
+Plan length: 9  Time elapsed in seconds: 11.677572516957298
 Load(P2, JFK, C2)
 Load(P1, SFO, C1)
 Load(P3, ATL, C3)
