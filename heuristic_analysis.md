@@ -1,8 +1,89 @@
 # Heuristic Analysis
 
-## Performance Comparsion
+## Optimal sequence
 
-All output are in output folder.  The plans of each problems are in the log files.
+Both BFS, Uniform cost search (UCS), A-star Ignore preconditions (A*HIP) and A-star level-sum (A*HPL) can output optimal sequence.
+Here is the output of A-star level-sum.
+
+### Problem 1
+
+Problem
+
+```
+Init(At(C1, SFO) ∧ At(C2, JFK) 
+    ∧ At(P1, SFO) ∧ At(P2, JFK) 
+    ∧ Cargo(C1) ∧ Cargo(C2) 
+    ∧ Plane(P1) ∧ Plane(P2)
+    ∧ Airport(JFK) ∧ Airport(SFO))
+Goal(At(C1, JFK) ∧ At(C2, SFO))
+```
+
+Plan
+
+    Load(P1, SFO, C1)
+    Load(P2, JFK, C2)
+    Fly(P1, SFO, JFK)
+    Fly(P2, JFK, SFO)
+    Unload(P1, JFK, C1)
+    Unload(P2, SFO, C2)
+
+### Problem 2
+
+Problem
+
+```
+Init(At(C1, SFO) ∧ At(C2, JFK) ∧ At(C3, ATL) 
+    ∧ At(P1, SFO) ∧ At(P2, JFK) ∧ At(P3, ATL) 
+    ∧ Cargo(C1) ∧ Cargo(C2) ∧ Cargo(C3)
+    ∧ Plane(P1) ∧ Plane(P2) ∧ Plane(P3)
+    ∧ Airport(JFK) ∧ Airport(SFO) ∧ Airport(ATL))
+Goal(At(C1, JFK) ∧ At(C2, SFO) ∧ At(C3, SFO))
+```
+
+Plan
+
+    Load(P1, SFO, C1)
+    Load(P2, JFK, C2)
+    Load(P3, ATL, C3)
+    Fly(P1, SFO, JFK)
+    Fly(P2, JFK, SFO)
+    Fly(P3, ATL, SFO)
+    Unload(P3, SFO, C3)
+    Unload(P2, SFO, C2)
+    Unload(P1, JFK, C1)
+
+### Problem 3
+
+Problem
+
+```
+Init(At(C1, SFO) ∧ At(C2, JFK) ∧ At(C3, ATL) ∧ At(C4, ORD) 
+    ∧ At(P1, SFO) ∧ At(P2, JFK) 
+    ∧ Cargo(C1) ∧ Cargo(C2) ∧ Cargo(C3) ∧ Cargo(C4)
+    ∧ Plane(P1) ∧ Plane(P2)
+    ∧ Airport(JFK) ∧ Airport(SFO) ∧ Airport(ATL) ∧ Airport(ORD))
+Goal(At(C1, JFK) ∧ At(C3, JFK) ∧ At(C2, SFO) ∧ At(C4, SFO))
+```
+
+Plan
+
+    Load(P1, SFO, C1)
+    Load(P2, JFK, C2)
+    Fly(P1, SFO, ORD)
+    Load(P1, ORD, C4)
+    Fly(P2, JFK, ATL)
+    Load(P2, ATL, C3)
+    Fly(P1, ORD, SFO)
+    Unload(P1, SFO, C4)
+    Fly(P1, SFO, JFK)
+    Fly(P2, ATL, JFK)
+    Unload(P2, JFK, C3)
+    Fly(P2, JFK, SFO)
+    Unload(P2, SFO, C2)
+    Unload(P1, JFK, C1)
+
+
+## Performance Result
 
 <table border=1>
 <tr>
@@ -13,103 +94,106 @@ All output are in output folder.  The plans of each problems are in the log file
 </tr>
 
 <tr style='background-color:#dddddd'>
-    <th>BFS</th><th>1</th>
-    <td>43</td><td>56</td><td>180</td>
+    <th>Breadth first search</th><th>1</th>
+    <td style='color:red'>43</td><td style='color:red'>56</td><td style='color:red'>180</td>
     <td>6</td><td>0.025</td>
     <td>p1s1.log</td>
 </tr>
 <tr style='background-color:#dddddd'>
-    <th>BFS</th><th>2</th>
-    <td>3343</td><td>4609</td><td>30509</td>
+    <th>Breadth first search</th><th>2</th>
+    <td style='color:red'>3343</td><td style='color:red'>4609</td><td style='color:red'>30509</td>
     <td>9</td><td>11.67</td>
     <td>p2s1.log</td>
 </tr>
 <tr style='background-color:#dddddd'>
-    <th>BFS</th><th>3</th>
-    <td>14663</td><td>18098</td><td>129631</td>
+    <th>Breadth first search</th><th>3</th>
+    <td style='color:red'>14663</td><td style='color:red'>18098</td><td style='color:red'>129631</td>
     <td>12</td><td>87.47</td>
     <td>p3s1.log</td>
 </tr>
 
 <tr>
-    <th>DFS</th><th>1</th>
+    <th>Depth first search</th><th>1</th>
     <td>12</td><td>13</td><td>48</td>
-    <td>12</td><td>0.006</td>
+    <td style='color:red'>12</td><td style='color:green'>0.006</td>
     <td>p1s3.log</td>
 </tr>
 <tr>
-    <th>DFS</th><th>2</th>
+    <th>Depth first search</th><th>2</th>
     <td>582</td><td>583</td><td>5211</td>
-    <td>575</td><td>2.641</td>
+    <td style='color:red'>575</td><td style='color:green'>2.641</td>
     <td>p2s3.log</td>
 </tr>
 <tr>
-    <th>DFS</th><th>3</th>
+    <th>Depth first search</th><th>3</th>
     <td>627</td><td>628</td><td>5176</td>
-    <td>596</td><td>2.836</td>
+    <td style='color:red'>596</td><td style='color:green'>2.836</td>
     <td>p3s3.log</td>
 </tr>
 
 <tr style='background-color:#dddddd'>
-    <th>UCS</th><th>1</th>
-    <td>55</td><td>57</td><td>224</td>
+    <th>Uniform cost search</th><th>1</th>
+    <td style='color:red'>55</td><td style='color:red'>57</td><td style='color:red'>224</td>
     <td>6</td><td>0.033</td>
     <td>p1s5.log</td>
 </tr>
 <tr style='background-color:#dddddd'>
-    <th>UCS</th><th>2</th>
-    <td>4823</td><td>4825</td><td>43774</td>
+    <th>Uniform cost search</th><th>2</th>
+    <td style='color:red'>4823</td><td style='color:red'>4825</td><td style='color:red'>43774</td>
     <td>9</td><td>37.190</td>
     <td>p2s5.log</td>
 </tr>
 <tr style='background-color:#dddddd'>
-    <th>UCS</th><th>3</th>
-    <td>18235</td><td>18237</td><td>159716</td>
+    <th>Uniform cost search</th><th>3</th>
+    <td style='color:red'>18235</td><td style='color:red'>18237</td><td style='color:red'>159716</td>
     <td>12</td><td>314.1</td>
     <td>p3s5.log</td>
 </tr>
 
 <tr>
-    <th>A*HIP</th><th>1</th>
+    <th>A* ignore preconditions</th><th>1</th>
     <td>41</td><td>43</td><td>170</td>
     <td>6</td><td>0.039</td>
     <td>p1s9.log</td>
 </tr>
 <tr>
-    <th>A*HIP</th><th>2</th>
+    <th>A* ignore preconditions</th><th>2</th>
     <td>1494</td><td>1496</td><td>13708</td>
     <td>9</td><td>12.13</td>
     <td>p2s9.log</td>
 </tr>
 <tr>
-    <th>A*HIP</th><th>3</th>
+    <th>A* ignore preconditions</th><th>3</th>
     <td>5118</td><td>5120</td><td>45650</td>
     <td>12</td><td>115.1</td>
     <td>p3s9.log</td>
 </tr>
 
 <tr style='background-color:#dddddd'>
-    <th>A*HPL</th><th>1</th>
-    <td>7</td><td>9</td><td>28</td>
-    <td>6</td><td>1.377</td>
+    <th>A* level sum</th><th>1</th>
+    <td style='color:green'>7</td><td style='color:green'>9</td><td style='color:green'>28</td>
+    <td>6</td><td style='color:red'>1.377</td>
     <td>p1s10.log</td>
 </tr>
 <tr style='background-color:#dddddd'>
-    <th>A*HPL</th><th>2</th>
-    <td>13</td><td>15</td><td>123</td>
-    <td>9</td><td>35.58</td>
+    <th>A* level sum</th><th>2</th>
+    <td style='color:green'>13</td><td style='color:green'>15</td><td style='color:green'>123</td>
+    <td>9</td><td style='color:red'>35.58</td>
     <td>p2s10.log</td>
 </tr>
 <tr style='background-color:#dddddd'>
-    <th>A*HPL</th><th>3</th>
-    <td>46</td><td>48</td><td>449</td>
-    <td>14</td><td>178.2</td>
+    <th>A* level sum</th><th>3</th>
+    <td style='color:green'>46</td><td style='color:green'>48</td><td style='color:green'>449</td>
+    <td>14</td><td style='color:red'>178.2</td>
     <td>p3s10.log</td>
 </tr>
 
 </table>
 
-* DFS is the quickest among all search algo.  However, it's plan length is highest.  Because DFS is not optimized for cost reduction.
-* The number of expansion, Goal tests and New nodes of A-Star ignore-preconditions (A*HIP) and A-Star level-sum (A*HPL) are lowest among the 5 searches.  That is because A-star search use heuristic function to reduce number of search node.  However, the run time used is high.  Since the run time of heuristic function is high.
-* Among 2 A-Star searchs, A-Star ignore-preconditions has lowest number of expansion, Goal tests and New nodes.  However, it use highest time since the heuristic function has heavy work load.
+## Analysis
+
+* Depth first search is the quickest among all search algoritms.  However, it's plan length is not optimal.  Because depth first search is not optimized for cost reduction.
+* The number of expansion, goal tests and new node are lowest in A* level sum algoritm.  That is because GRAPHPLAN and level-sum heuristic can reduce the search space.  However, the time used is high, that is because the algorithm build GRAPHPLAN in every heuristic estimation, and the run time cost is high.
+* Beside above algorithms, the number of expansion, goal tests and new node are lowest in A* ignore preconditions.  That is because the heuristic function can reduce the search space.  Time used is high since there is run time cost in heuristic function.
+* The number of expansion, goal tests and new node are high in breadth first search and uniform cost search.  Since they does not have heuristic function to reduce the search space.
 * For problem which have obvious good heuristic function, BFS and A-star with provided heuristic function can be a good chooce.  For more complex problem, we can consider A-star level sum as it can highly reduce search space.
